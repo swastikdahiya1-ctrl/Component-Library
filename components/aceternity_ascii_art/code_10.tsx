@@ -1,0 +1,18 @@
+"use client";
+import { AsciiArt } from "@/components/ui/ascii-art";
+ 
+export function AsciiArtStarsDemo() {
+  return (
+    <AsciiArt
+      src="https://assets.aceternity.com/avatars/manu.webp"
+      resolution={80}
+      charset="stars"
+      color="#f43f5e"
+      inverted
+      animated={false}
+      className="mx-auto aspect-square w-full max-w-lg bg-neutral-950"
+    />
+  );
+}
+Copy
+Select Language

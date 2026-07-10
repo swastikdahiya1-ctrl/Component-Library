@@ -1,0 +1,6 @@
+Copy
+import {
+  AnimatedSpan,
+  Terminal,
+  TypingAnimation,
+} from "@/components/ui/terminal"
