@@ -93,5 +93,11 @@ export const componentsRegistry: ComponentEntry[] = [
     name: 'Chat UI',
     source: 'custom',
     component: lazy(() => import('../../../components/ChatInterface'))
+  },
+  {
+    id: 'ios-app-folder',
+    name: 'App Folder',
+    source: 'custom',
+    component: lazy(() => import('../../../components/IosAppFolder'))
   }
 ];

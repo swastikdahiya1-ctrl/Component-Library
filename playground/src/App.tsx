@@ -13,7 +13,7 @@ import PhysicsText2 from '../../components/PhysicsText2';
 import RadialMenu from '../../components/RadialMenu';
 import Toaster from '../../components/Toaster';
 import ChatInterface from '../../components/ChatInterface';
-
+import IosAppFolder from '../../components/IosAppFolder';
 const COMPONENTS = {
   'accordion': { name: 'Accordion', component: Accordion },
   'alert-dialog': { name: 'Alert Dialog', component: AlertDialog },
@@ -29,6 +29,7 @@ const COMPONENTS = {
   'radial-menu': { name: 'Radial Menu', component: RadialMenu },
   'toaster': { name: 'Toaster', component: Toaster },
   'chat': { name: 'Chat UI', component: ChatInterface },
+  'ios-app-folder': { name: 'App Folder', component: IosAppFolder },
 };
 
 export default function App() {
