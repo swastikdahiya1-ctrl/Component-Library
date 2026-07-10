@@ -14,6 +14,10 @@ import RadialMenu from '../../components/RadialMenu';
 import Toaster from '../../components/Toaster';
 import ChatInterface from '../../components/ChatInterface';
 import IosAppFolder from '../../components/IosAppFolder';
+import CustomContentCursor from '../../components/CustomContentCursor';
+import MegaMenu from '../../components/MegaMenu';
+import IosSlider from '../../components/IosSlider';
+import SwipeActions from '../../components/SwipeActions';
 const COMPONENTS = {
   'accordion': { name: 'Accordion', component: Accordion },
   'alert-dialog': { name: 'Alert Dialog', component: AlertDialog },
@@ -30,6 +34,10 @@ const COMPONENTS = {
   'toaster': { name: 'Toaster', component: Toaster },
   'chat': { name: 'Chat UI', component: ChatInterface },
   'ios-app-folder': { name: 'App Folder', component: IosAppFolder },
+  'custom-content-cursor': { name: 'Custom Cursor', component: CustomContentCursor },
+  'mega-menu': { name: 'Mega Menu', component: MegaMenu },
+  'ios-slider': { name: 'iOS Slider', component: IosSlider },
+  'swipe-actions': { name: 'Swipe Actions', component: SwipeActions },
 };
 
 export default function App() {

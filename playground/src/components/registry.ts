@@ -99,5 +99,29 @@ export const componentsRegistry: ComponentEntry[] = [
     name: 'App Folder',
     source: 'custom',
     component: lazy(() => import('../../../components/IosAppFolder'))
+  },
+  {
+    id: 'custom-content-cursor',
+    name: 'Custom Cursor',
+    source: 'custom',
+    component: lazy(() => import('../../../components/CustomContentCursor'))
+  },
+  {
+    id: 'mega-menu',
+    name: 'Mega Menu',
+    source: 'custom',
+    component: lazy(() => import('../../../components/MegaMenu'))
+  },
+  {
+    id: 'ios-slider',
+    name: 'iOS Slider',
+    source: 'custom',
+    component: lazy(() => import('../../../components/IosSlider'))
+  },
+  {
+    id: 'swipe-actions',
+    name: 'Swipe Actions',
+    source: 'custom',
+    component: lazy(() => import('../../../components/SwipeActions'))
   }
 ];
