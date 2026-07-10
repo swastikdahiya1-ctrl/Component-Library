@@ -18,6 +18,11 @@ import CustomContentCursor from '../../components/CustomContentCursor';
 import MegaMenu from '../../components/MegaMenu';
 import IosSlider from '../../components/IosSlider';
 import SwipeActions from '../../components/SwipeActions';
+import AppleWatchHome from '../../components/AppleWatchHome';
+import SplitTextScatter from '../../components/SplitTextScatter';
+import NumberPriceSwitcher from '../../components/NumberPriceSwitcher';
+import Typewriter from '../../components/Typewriter';
+import AnimatedSidebar from '../../components/AnimatedSidebar';
 const COMPONENTS = {
   'accordion': { name: 'Accordion', component: Accordion },
   'alert-dialog': { name: 'Alert Dialog', component: AlertDialog },
@@ -38,6 +43,11 @@ const COMPONENTS = {
   'mega-menu': { name: 'Mega Menu', component: MegaMenu },
   'ios-slider': { name: 'iOS Slider', component: IosSlider },
   'swipe-actions': { name: 'Swipe Actions', component: SwipeActions },
+  'apple-watch': { name: 'Apple Watch', component: AppleWatchHome },
+  'text-scatter': { name: 'Text Scatter', component: SplitTextScatter },
+  'price-switcher': { name: 'Price Switcher', component: NumberPriceSwitcher },
+  'typewriter': { name: 'Typewriter', component: Typewriter },
+  'sidebar': { name: 'Animated Sidebar', component: AnimatedSidebar },
 };
 
 export default function App() {

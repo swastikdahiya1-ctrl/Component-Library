@@ -123,5 +123,35 @@ export const componentsRegistry: ComponentEntry[] = [
     name: 'Swipe Actions',
     source: 'custom',
     component: lazy(() => import('../../../components/SwipeActions'))
+  },
+  {
+    id: 'apple-watch-home',
+    name: 'Apple Watch',
+    source: 'custom',
+    component: lazy(() => import('../../../components/AppleWatchHome'))
+  },
+  {
+    id: 'split-text-scatter',
+    name: 'Text Scatter',
+    source: 'custom',
+    component: lazy(() => import('../../../components/SplitTextScatter'))
+  },
+  {
+    id: 'number-price-switcher',
+    name: 'Price Switcher',
+    source: 'custom',
+    component: lazy(() => import('../../../components/NumberPriceSwitcher'))
+  },
+  {
+    id: 'typewriter',
+    name: 'Typewriter',
+    source: 'custom',
+    component: lazy(() => import('../../../components/Typewriter'))
+  },
+  {
+    id: 'animated-sidebar',
+    name: 'Animated Sidebar',
+    source: 'custom',
+    component: lazy(() => import('../../../components/AnimatedSidebar'))
   }
 ];
