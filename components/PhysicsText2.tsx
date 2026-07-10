@@ -129,9 +129,10 @@ export default function PhysicsText2() {
             const spinX = -normalizedY * spinForce;
             const spinY = normalizedX * spinForce;
 
-            // Heavy air resistance (0.8) 
-            body.vx = body.vx * 0.8 + pullX + spinX;
-            body.vy = body.vy * 0.8 + pullY + spinY;
+            // Smoothly transition friction from normal (0.994) to heavy (0.8) as gravity takes over
+            const currentFriction = 0.994 - (0.194 * ramp);
+            body.vx = body.vx * currentFriction + pullX + spinX;
+            body.vy = body.vy * currentFriction + pullY + spinY;
 
             // CRITICAL EVENT HORIZON FIX: Prevent slingshot overshooting!
             // If they travel faster than their distance to the center, they shoot past it and orbit forever.
@@ -145,12 +146,9 @@ export default function PhysicsText2() {
               }
             }
 
-            // Fisheye scale effect: as they cross the 300px threshold, they shrink
-            if (dist < 300) {
-              body.scale = Math.max(0, dist / 300);
-            } else {
-              body.scale = 1;
-            }
+            // Fisheye scale effect: blend it in so it doesn't snap when the state switches
+            const targetScale = dist < 300 ? Math.max(0, dist / 300) : 1;
+            body.scale = 1 - ((1 - targetScale) * ramp);
 
             // Once scale hits 0.02 (dist < 6px), they are basically gone
             if (body.scale > 0.02) {

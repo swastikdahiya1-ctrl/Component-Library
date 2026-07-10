@@ -11,87 +11,81 @@ export interface ComponentEntry {
 
 export const componentsRegistry: ComponentEntry[] = [
   {
-    id: 'aceternity-background-boxes',
-    name: 'Background Boxes',
-    source: 'aceternity',
-    component: lazy(() => import('./ui/BackgroundBoxes'))
-  },
-  {
-    id: 'aceternity-3d-card',
-    name: '3D Card Effect',
-    source: 'aceternity',
-    component: lazy(() => import('./ui/ThreeDCard'))
-  },
-  {
-    id: 'aceternity-meteors',
-    name: 'Meteors',
-    source: 'aceternity',
-    component: lazy(() => import('./ui/Meteors'))
-  },
-  {
-    id: 'aceternity-spotlight',
-    name: 'Spotlight',
-    source: 'aceternity',
-    component: lazy(() => import('./ui/Spotlight'))
-  },
-  {
-    id: 'aceternity-typewriter',
-    name: 'Typewriter Effect',
-    source: 'aceternity',
-    component: lazy(() => import('./ui/Typewriter'))
-  },
-  {
-    id: 'magicui-animated-beam',
-    name: 'Animated Beam',
-    source: 'magic-ui',
-    component: lazy(() => import('./ui/AnimatedBeam'))
-  },
-  {
-    id: 'magicui-marquee',
-    name: 'Marquee',
-    source: 'magic-ui',
-    component: lazy(() => import('./ui/Marquee'))
-  },
-  {
-    id: 'magicui-dock',
-    name: 'Dock',
-    source: 'magic-ui',
-    component: lazy(() => import('./ui/Dock'))
-  },
-  {
-    id: 'magicui-globe',
-    name: 'Globe',
-    source: 'magic-ui',
-    component: lazy(() => import('./ui/Globe'))
-  },
-  {
-    id: 'magicui-confetti',
-    name: 'Confetti',
-    source: 'magic-ui',
-    component: lazy(() => import('./ui/Confetti'))
-  },
-  {
-    id: 'physics-text',
-    name: 'Physics Text',
+    id: 'accordion',
+    name: 'Accordion',
     source: 'custom',
-    component: lazy(() => import('../../../components/PhysicsText'))
+    component: lazy(() => import('../../components/Accordion'))
   },
   {
-    id: 'physics-text-2',
-    name: 'Blackhole Physics',
+    id: 'alert-dialog',
+    name: 'Alert Dialog',
     source: 'custom',
-    component: lazy(() => import('../../../components/PhysicsText2'))
+    component: lazy(() => import('../../components/AlertDialog'))
+  },
+  {
+    id: 'calendar',
+    name: 'Calendar',
+    source: 'custom',
+    component: lazy(() => import('../../components/Calendar'))
+  },
+  {
+    id: 'context-menu',
+    name: 'Context Menu',
+    source: 'custom',
+    component: lazy(() => import('../../components/ContextMenu'))
+  },
+  {
+    id: 'copy-button',
+    name: 'Copy Button',
+    source: 'custom',
+    component: lazy(() => import('../../components/CopyButton'))
   },
   {
     id: 'hover-image-reveal',
     name: 'Hover Image Reveal',
     source: 'custom',
-    component: lazy(() => import('../../../components/HoverImageReveal'))
+    component: lazy(() => import('../../components/HoverImageReveal'))
+  },
+  {
+    id: 'magnetic-cursor',
+    name: 'Magnetic Cursor',
+    source: 'custom',
+    component: lazy(() => import('../../components/MagneticCursor'))
+  },
+  {
+    id: 'menu-bar',
+    name: 'Menu Bar',
+    source: 'custom',
+    component: lazy(() => import('../../components/MenuBar'))
   },
   {
     id: 'morphing-modal',
     name: 'Morphing Modal',
     source: 'custom',
-    component: lazy(() => import('../../../components/MorphingModal'))
+    component: lazy(() => import('../../components/MorphingModal'))
+  },
+  {
+    id: 'physics-text',
+    name: 'Physics Text',
+    source: 'custom',
+    component: lazy(() => import('../../components/PhysicsText'))
+  },
+  {
+    id: 'physics-text-2',
+    name: 'Blackhole Physics',
+    source: 'custom',
+    component: lazy(() => import('../../components/PhysicsText2'))
+  },
+  {
+    id: 'radial-menu',
+    name: 'Radial Menu',
+    source: 'custom',
+    component: lazy(() => import('../../components/RadialMenu'))
+  },
+  {
+    id: 'toaster',
+    name: 'Toaster',
+    source: 'custom',
+    component: lazy(() => import('../../components/Toaster'))
   }
 ];
