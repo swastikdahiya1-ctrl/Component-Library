@@ -126,7 +126,7 @@ export default function ChatInterface() {
               </motion.div>
             ) : (
               <div className="flex flex-col gap-6">
-                <AnimatePresence initial={false}>
+                <AnimatePresence initial={false} mode="popLayout">
                   {messages.map((msg) => (
                     <motion.div
                       key={msg.id}
@@ -147,12 +147,11 @@ export default function ChatInterface() {
                       </div>
                     </motion.div>
                   ))}
-                </AnimatePresence>
 
-                {/* Typing Indicator */}
-                <AnimatePresence>
+                  {/* Typing Indicator */}
                   {isTyping && (
                     <motion.div
+                      key="typing-indicator"
                       layout="position"
                       initial={{ opacity: 0, scale: 0.8, y: 20, originX: 0 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
