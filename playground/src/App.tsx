@@ -12,6 +12,7 @@ import PhysicsText from '../../components/PhysicsText';
 import PhysicsText2 from '../../components/PhysicsText2';
 import RadialMenu from '../../components/RadialMenu';
 import Toaster from '../../components/Toaster';
+import ChatInterface from '../../components/ChatInterface';
 
 const COMPONENTS = {
   'accordion': { name: 'Accordion', component: Accordion },
@@ -27,6 +28,7 @@ const COMPONENTS = {
   'physics2': { name: 'Blackhole Physics', component: PhysicsText2 },
   'radial-menu': { name: 'Radial Menu', component: RadialMenu },
   'toaster': { name: 'Toaster', component: Toaster },
+  'chat': { name: 'Chat UI', component: ChatInterface },
 };
 
 export default function App() {

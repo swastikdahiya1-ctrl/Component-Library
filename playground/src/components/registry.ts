@@ -87,5 +87,11 @@ export const componentsRegistry: ComponentEntry[] = [
     name: 'Toaster',
     source: 'custom',
     component: lazy(() => import('../../../components/Toaster'))
+  },
+  {
+    id: 'chat-interface',
+    name: 'Chat UI',
+    source: 'custom',
+    component: lazy(() => import('../../../components/ChatInterface'))
   }
 ];
