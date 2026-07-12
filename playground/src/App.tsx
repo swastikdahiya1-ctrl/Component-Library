@@ -1,5 +1,6 @@
 import React, { useState, Suspense } from 'react';
-import { componentsRegistry, ComponentCategory } from './components/registry';
+import { componentsRegistry } from './components/registry';
+import type { ComponentCategory } from './components/registry';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Search, ChevronDown, ChevronRight, Github, Check, Copy } from 'lucide-react';
