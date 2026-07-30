@@ -14,7 +14,7 @@ export default function StudioHoverAnim() {
         onMouseLeave={() => setIsHovered(false)}
       >
         {TEXT.split('').map((char, i) => (
-          <div key={i} className="overflow-hidden relative inline-block">
+          <div key={i} className="relative inline-block" style={{ clipPath: "inset(0 -20px 0 -20px)" }}>
             {/* Top Text - Exits completely out of bounds */}
             <motion.span
               className="inline-block origin-bottom leading-[0.8]"
