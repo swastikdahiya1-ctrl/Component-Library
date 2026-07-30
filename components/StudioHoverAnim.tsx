@@ -15,6 +15,7 @@ export default function StudioHoverAnim() {
       >
         {TEXT.split('').map((char, i) => (
           <div key={i} className="overflow-hidden relative inline-block pb-4">
+            {/* Top Text - Exits upwards and turns green */}
             <motion.span
               className="inline-block origin-bottom leading-[0.8]"
               animate={isHovered ? "hovered" : "initial"}
@@ -22,21 +23,39 @@ export default function StudioHoverAnim() {
                 initial: { 
                   y: "0%", 
                   color: "#000000",
-                  transition: {
-                     duration: 0.3,
-                     ease: "easeOut"
-                  }
                 },
                 hovered: {
-                  y: ["0%", "-100%", "100%", "0%"],
-                  color: ["#000000", "#10b981", "#10b981", "#000000"],
-                  transition: {
-                    duration: 0.8,
-                    times: [0, 0.49, 0.51, 1],
-                    ease: "easeInOut",
-                    delay: i * 0.05
-                  }
+                  y: "-100%",
+                  color: "#10b981",
                 }
+              }}
+              transition={{
+                duration: 0.5,
+                ease: [0.16, 1, 0.3, 1],
+                delay: i * 0.04
+              }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </motion.span>
+
+            {/* Bottom Text - Enters from below starting green and settling to black */}
+            <motion.span
+              className="absolute left-0 top-0 inline-block origin-bottom leading-[0.8]"
+              animate={isHovered ? "hovered" : "initial"}
+              variants={{
+                initial: { 
+                  y: "100%", 
+                  color: "#10b981", 
+                },
+                hovered: {
+                  y: "0%",
+                  color: "#000000",
+                }
+              }}
+              transition={{
+                duration: 0.5,
+                ease: [0.16, 1, 0.3, 1],
+                delay: i * 0.04
               }}
             >
               {char === " " ? "\u00A0" : char}
