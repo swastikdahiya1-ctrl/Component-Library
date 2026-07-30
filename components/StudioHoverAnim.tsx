@@ -15,7 +15,7 @@ export default function StudioHoverAnim() {
       >
         {TEXT.split('').map((char, i) => (
           <div key={i} className="overflow-hidden relative inline-block">
-            {/* Top Text - Exits upwards, turns green, and fades out */}
+            {/* Top Text - Exits completely out of bounds */}
             <motion.span
               className="inline-block origin-bottom leading-[0.8]"
               animate={isHovered ? "hovered" : "initial"}
@@ -23,12 +23,10 @@ export default function StudioHoverAnim() {
                 initial: { 
                   y: "0%", 
                   color: "#000000",
-                  opacity: 1
                 },
                 hovered: {
-                  y: "-100%",
+                  y: "-120%", 
                   color: "#10b981",
-                  opacity: 0
                 }
               }}
               transition={{
@@ -40,20 +38,18 @@ export default function StudioHoverAnim() {
               {char === " " ? "\u00A0" : char}
             </motion.span>
 
-            {/* Bottom Text - Enters from below starting green, fades in, and settles to black */}
+            {/* Bottom Text - Starts completely out of bounds from below */}
             <motion.span
               className="absolute left-0 top-0 inline-block origin-bottom leading-[0.8]"
               animate={isHovered ? "hovered" : "initial"}
               variants={{
                 initial: { 
-                  y: "100%", 
+                  y: "120%", 
                   color: "#10b981",
-                  opacity: 0
                 },
                 hovered: {
                   y: "0%",
                   color: "#000000",
-                  opacity: 1
                 }
               }}
               transition={{
