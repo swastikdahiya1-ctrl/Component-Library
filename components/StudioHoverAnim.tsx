@@ -19,7 +19,7 @@ export default function StudioHoverAnim() {
             className="flex items-center justify-center text-black"
             initial={{ x: "-100%" }}
             animate={{ x: isHovered ? "0%" : "-100%" }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
           >
             <svg width="1.12em" height="1.12em" viewBox="0 0 24 24" fill="currentColor">
               {/* Stem */}
