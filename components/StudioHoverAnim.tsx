@@ -9,10 +9,31 @@ export default function StudioHoverAnim() {
   return (
     <div className="w-full min-h-screen bg-[#FDFDFD] flex items-center justify-center font-sans overflow-hidden">
       <div 
-        className="flex cursor-pointer text-8xl md:text-[150px] font-normal uppercase tracking-tighter"
+        className="flex items-center cursor-pointer text-8xl md:text-[150px] font-normal uppercase tracking-tighter"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
+        {/* Pixelated Arrow */}
+        <motion.div
+          className="mr-6 md:mr-10 flex items-center justify-center text-black"
+          initial={{ x: -40, opacity: 0 }}
+          animate={{ x: isHovered ? 0 : -40, opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <svg width="0.8em" height="0.8em" viewBox="0 0 24 24" fill="currentColor">
+            {/* Stem */}
+            <rect x="2" y="11" width="14" height="2" />
+            {/* Center pixel of arrow head */}
+            <rect x="16" y="11" width="2" height="2" />
+            {/* Top diagonal */}
+            <rect x="14" y="9" width="2" height="2" />
+            <rect x="12" y="7" width="2" height="2" />
+            {/* Bottom diagonal */}
+            <rect x="14" y="13" width="2" height="2" />
+            <rect x="12" y="15" width="2" height="2" />
+          </svg>
+        </motion.div>
+
         {TEXT.split('').map((char, i) => (
           <div key={i} className="relative inline-block" style={{ clipPath: "inset(0 -20px 0 -20px)" }}>
             {/* Top Text - Exits completely out of bounds */}
@@ -30,7 +51,7 @@ export default function StudioHoverAnim() {
                 }
               }}
               transition={{
-                duration: 0.5,
+                duration: 0.6,
                 ease: [0.16, 1, 0.3, 1],
                 delay: i * 0.04
               }}
@@ -53,7 +74,7 @@ export default function StudioHoverAnim() {
                 }
               }}
               transition={{
-                duration: 0.5,
+                duration: 0.6,
                 ease: [0.16, 1, 0.3, 1],
                 delay: i * 0.04
               }}
