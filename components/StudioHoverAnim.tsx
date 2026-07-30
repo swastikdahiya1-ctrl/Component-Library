@@ -29,11 +29,11 @@ function HoverRow({
     >
       {/* Pixelated Arrow */}
       <div className="mr-4 md:mr-8 flex items-center justify-center overflow-hidden translate-y-[5%]">
-        <motion.div
+          <motion.div
           className="flex items-center justify-center text-black"
           initial={{ x: "-100%" }}
           animate={{ x: isHovered ? "0%" : "-100%" }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         >
           <svg width="1.12em" height="1.12em" viewBox="0 0 24 24" fill="currentColor">
             {/* Stem */}
@@ -64,7 +64,7 @@ function HoverRow({
                 hovered: { y: "-120%", color: "#ccff00" }
               }}
               transition={{
-                duration: 0.75,
+                duration: 0.98,
                 ease: [0.16, 1, 0.3, 1],
                 delay: i * 0.025
               }}
@@ -82,7 +82,7 @@ function HoverRow({
                 hovered: { y: "0%", color: "#000000" }
               }}
               transition={{
-                duration: 0.75,
+                duration: 0.98,
                 ease: [0.16, 1, 0.3, 1],
                 delay: i * 0.025
               }}
