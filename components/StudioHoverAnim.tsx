@@ -9,7 +9,7 @@ export default function StudioHoverAnim() {
   return (
     <div className="w-full min-h-screen bg-[#FDFDFD] flex items-center justify-center font-sans overflow-hidden">
       <div 
-        className="flex cursor-pointer text-8xl md:text-[150px] font-black uppercase tracking-tighter"
+        className="flex cursor-pointer text-8xl md:text-[150px] font-normal uppercase tracking-tighter"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -26,7 +26,7 @@ export default function StudioHoverAnim() {
                 },
                 hovered: {
                   y: "-120%", 
-                  color: "#10b981",
+                  color: "#ccff00",
                 }
               }}
               transition={{
@@ -45,7 +45,7 @@ export default function StudioHoverAnim() {
               variants={{
                 initial: { 
                   y: "120%", 
-                  color: "#10b981",
+                  color: "#ccff00",
                 },
                 hovered: {
                   y: "0%",
