@@ -14,7 +14,7 @@ export default function StudioHoverAnim() {
         onMouseLeave={() => setIsHovered(false)}
       >
         {TEXT.split('').map((char, i) => (
-          <div key={i} className="overflow-hidden relative inline-block pb-4">
+          <div key={i} className="overflow-hidden relative inline-block">
             {/* Top Text - Exits upwards and turns green */}
             <motion.span
               className="inline-block origin-bottom leading-[0.8]"
