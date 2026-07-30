@@ -17,6 +17,7 @@ export const componentsRegistry: ComponentEntry[] = [
   { id: 'physics-text-2', name: 'Blackhole Physics', source: 'custom', category: 'Text Animations', filename: 'PhysicsText2.tsx', component: lazy(() => import('../../../components/PhysicsText2')) },
   { id: 'split-text-scatter', name: 'Text Scatter', source: 'custom', category: 'Text Animations', filename: 'SplitTextScatter.tsx', component: lazy(() => import('../../../components/SplitTextScatter')) },
   { id: 'typewriter', name: 'Typewriter', source: 'custom', category: 'Text Animations', filename: 'Typewriter.tsx', component: lazy(() => import('../../../components/Typewriter')) },
+  { id: 'studio-hover-anim', name: 'Studio Hover', source: 'custom', category: 'Text Animations', filename: 'StudioHoverAnim.tsx', component: lazy(() => import('../../../components/StudioHoverAnim')) },
   
   { id: 'mega-menu', name: 'Mega Menu', source: 'custom', category: 'Navigations', filename: 'MegaMenu.tsx', component: lazy(() => import('../../../components/MegaMenu')) },
   { id: 'radial-menu', name: 'Radial Menu', source: 'custom', category: 'Navigations', filename: 'RadialMenu.tsx', component: lazy(() => import('../../../components/RadialMenu')) },
