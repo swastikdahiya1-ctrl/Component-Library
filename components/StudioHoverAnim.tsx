@@ -14,25 +14,27 @@ export default function StudioHoverAnim() {
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Pixelated Arrow */}
-        <motion.div
-          className="mr-6 md:mr-10 flex items-center justify-center text-black"
-          initial={{ x: -40, opacity: 0 }}
-          animate={{ x: isHovered ? 0 : -40, opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-        >
-          <svg width="0.8em" height="0.8em" viewBox="0 0 24 24" fill="currentColor">
-            {/* Stem */}
-            <rect x="2" y="11" width="14" height="2" />
-            {/* Center pixel of arrow head */}
-            <rect x="16" y="11" width="2" height="2" />
-            {/* Top diagonal */}
-            <rect x="14" y="9" width="2" height="2" />
-            <rect x="12" y="7" width="2" height="2" />
-            {/* Bottom diagonal */}
-            <rect x="14" y="13" width="2" height="2" />
-            <rect x="12" y="15" width="2" height="2" />
-          </svg>
-        </motion.div>
+        <div className="mr-6 md:mr-10 flex items-center justify-center overflow-hidden">
+          <motion.div
+            className="flex items-center justify-center text-black"
+            initial={{ x: "-100%" }}
+            animate={{ x: isHovered ? "0%" : "-100%" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <svg width="1.12em" height="1.12em" viewBox="0 0 24 24" fill="currentColor">
+              {/* Stem */}
+              <rect x="2" y="11" width="14" height="2" />
+              {/* Center pixel of arrow head */}
+              <rect x="16" y="11" width="2" height="2" />
+              {/* Top diagonal */}
+              <rect x="14" y="9" width="2" height="2" />
+              <rect x="12" y="7" width="2" height="2" />
+              {/* Bottom diagonal */}
+              <rect x="14" y="13" width="2" height="2" />
+              <rect x="12" y="15" width="2" height="2" />
+            </svg>
+          </motion.div>
+        </div>
 
         {TEXT.split('').map((char, i) => (
           <div key={i} className="relative inline-block" style={{ clipPath: "inset(0 -20px 0 -20px)" }}>
