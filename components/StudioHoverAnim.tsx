@@ -13,7 +13,7 @@ function HoverRow({ text }: { text: string }) {
 
   return (
     <div 
-      className="flex items-center cursor-pointer text-5xl sm:text-7xl md:text-[90px] lg:text-[120px] font-normal uppercase tracking-tighter"
+      className="flex items-center cursor-pointer text-3xl sm:text-4xl md:text-5xl lg:text-[70px] font-normal uppercase tracking-tighter"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
