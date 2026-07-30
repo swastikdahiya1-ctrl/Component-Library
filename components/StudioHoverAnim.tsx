@@ -14,12 +14,12 @@ export default function StudioHoverAnim() {
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Pixelated Arrow */}
-        <div className="mr-6 md:mr-10 flex items-center justify-center overflow-hidden">
+        <div className="mr-6 md:mr-10 flex items-center justify-center overflow-hidden -translate-y-[10%]">
           <motion.div
             className="flex items-center justify-center text-black"
             initial={{ x: "-100%" }}
             animate={{ x: isHovered ? "0%" : "-100%" }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: "backOut" }}
           >
             <svg width="1.12em" height="1.12em" viewBox="0 0 24 24" fill="currentColor">
               {/* Stem */}
