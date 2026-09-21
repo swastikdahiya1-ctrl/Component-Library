@@ -12,7 +12,7 @@ export default function MegaMenu() {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <div className="w-full min-h-screen bg-[#0a0a0a] flex items-start justify-center pt-32 font-sans relative">
+    <div className="w-full h-full bg-[#0a0a0a] flex items-start justify-center pt-16 font-sans relative">
       <div 
         className="flex gap-2 p-2 bg-zinc-900/50 backdrop-blur-md rounded-full border border-white/10 relative"
         onMouseLeave={() => setHovered(null)}

@@ -90,9 +90,9 @@ export default function ChatInterface() {
           }
         `}
       </style>
-      <div className="w-full min-h-screen bg-black flex items-center justify-center p-4 font-sans">
+      <div className="w-full h-full bg-black flex items-center justify-center p-4 font-sans">
         {/* Phone/Widget Container */}
-        <div className="w-full max-w-[400px] h-[750px] bg-[#121212] rounded-[32px] border border-white/10 flex flex-col overflow-hidden relative shadow-2xl">
+        <div className="w-full max-w-[380px] h-[500px] bg-[#121212] rounded-[28px] border border-white/10 flex flex-col overflow-hidden relative shadow-2xl">
           
           {/* Header */}
           <div className="px-6 py-5 flex items-center justify-between border-b border-white/5 bg-[#121212] z-10 shrink-0">

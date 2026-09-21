@@ -14,9 +14,9 @@ export default function AnimatedSidebar() {
   ];
 
   return (
-    <div className="w-full min-h-screen bg-[#0a0a0a] flex font-sans">
+    <div className="w-full h-full bg-[#0a0a0a] flex font-sans">
       <motion.div 
-        className="h-screen bg-[#111] border-r border-white/10 p-4 flex flex-col gap-4 relative shadow-2xl"
+        className="h-full bg-[#111] border-r border-white/10 p-4 flex flex-col gap-4 relative shadow-2xl"
         animate={{ width: expanded ? 260 : 80 }}
         transition={{ type: "spring", bounce: 0, duration: 0.5 }}
       >

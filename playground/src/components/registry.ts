@@ -1,7 +1,12 @@
 import { lazy } from 'react';
 
 export type ComponentSource = 'aceternity' | 'magicui' | 'custom';
-export type ComponentCategory = 'Text Animations' | 'Navigations' | 'Cursors' | 'Overlays & Modals' | 'Interactive UI';
+export type ComponentCategory = 
+  | 'Typography & Text'
+  | 'Navigation & Menus'
+  | 'Cursor & Hover Effects'
+  | 'Overlays & Feedback'
+  | 'Interactive Controls';
 
 export interface ComponentEntry {
   id: string;
@@ -13,33 +18,29 @@ export interface ComponentEntry {
 }
 
 export const componentsRegistry: ComponentEntry[] = [
-  { id: 'physics-text', name: 'Physics Text', source: 'custom', category: 'Text Animations', filename: 'PhysicsText.tsx', component: lazy(() => import('../../../components/PhysicsText')) },
-  { id: 'physics-text-2', name: 'Blackhole Physics', source: 'custom', category: 'Text Animations', filename: 'PhysicsText2.tsx', component: lazy(() => import('../../../components/PhysicsText2')) },
-  { id: 'split-text-scatter', name: 'Text Scatter', source: 'custom', category: 'Text Animations', filename: 'SplitTextScatter.tsx', component: lazy(() => import('../../../components/SplitTextScatter')) },
-  { id: 'typewriter', name: 'Typewriter', source: 'custom', category: 'Text Animations', filename: 'Typewriter.tsx', component: lazy(() => import('../../../components/Typewriter')) },
-  { id: 'studio-hover-anim', name: 'Studio Hover', source: 'custom', category: 'Text Animations', filename: 'StudioHoverAnim.tsx', component: lazy(() => import('../../../components/StudioHoverAnim')) },
+  // Typography & Text
+  { id: 'physics-text-2', name: 'Blackhole Gravity Text', source: 'custom', category: 'Typography & Text', filename: 'PhysicsText2.tsx', component: lazy(() => import('../../../components/PhysicsText2')) },
+  { id: 'typewriter', name: 'Kinetic Typewriter', source: 'custom', category: 'Typography & Text', filename: 'Typewriter.tsx', component: lazy(() => import('../../../components/Typewriter')) },
+  { id: 'studio-hover-anim', name: 'Studio Word Roll', source: 'custom', category: 'Typography & Text', filename: 'StudioHoverAnim.tsx', component: lazy(() => import('../../../components/StudioHoverAnim')) },
   
-  { id: 'mega-menu', name: 'Mega Menu', source: 'custom', category: 'Navigations', filename: 'MegaMenu.tsx', component: lazy(() => import('../../../components/MegaMenu')) },
-  { id: 'radial-menu', name: 'Radial Menu', source: 'custom', category: 'Navigations', filename: 'RadialMenu.tsx', component: lazy(() => import('../../../components/RadialMenu')) },
-  { id: 'menu-bar', name: 'Menu Bar', source: 'custom', category: 'Navigations', filename: 'MenuBar.tsx', component: lazy(() => import('../../../components/MenuBar')) },
-  { id: 'context-menu', name: 'Context Menu', source: 'custom', category: 'Navigations', filename: 'ContextMenu.tsx', component: lazy(() => import('../../../components/ContextMenu')) },
-  { id: 'animated-sidebar', name: 'Animated Sidebar', source: 'custom', category: 'Navigations', filename: 'AnimatedSidebar.tsx', component: lazy(() => import('../../../components/AnimatedSidebar')) },
+  // Navigation & Menus
+  { id: 'mega-menu', name: 'Expanding Mega Menu', source: 'custom', category: 'Navigation & Menus', filename: 'MegaMenu.tsx', component: lazy(() => import('../../../components/MegaMenu')) },
+  { id: 'radial-menu', name: 'Radial Menu', source: 'custom', category: 'Navigation & Menus', filename: 'RadialMenu.tsx', component: lazy(() => import('../../../components/RadialMenu')) },
+  { id: 'menu-bar', name: 'Desktop Menu Bar', source: 'custom', category: 'Navigation & Menus', filename: 'MenuBar.tsx', component: lazy(() => import('../../../components/MenuBar')) },
+  { id: 'context-menu', name: 'Context Menu', source: 'custom', category: 'Navigation & Menus', filename: 'ContextMenu.tsx', component: lazy(() => import('../../../components/ContextMenu')) },
+  { id: 'animated-sidebar', name: 'Morphing Sidebar', source: 'custom', category: 'Navigation & Menus', filename: 'AnimatedSidebar.tsx', component: lazy(() => import('../../../components/AnimatedSidebar')) },
 
-  { id: 'magnetic-cursor', name: 'Magnetic Cursor', source: 'custom', category: 'Cursors', filename: 'MagneticCursor.tsx', component: lazy(() => import('../../../components/MagneticCursor')) },
-  { id: 'custom-content-cursor', name: 'Custom Cursor', source: 'custom', category: 'Cursors', filename: 'CustomContentCursor.tsx', component: lazy(() => import('../../../components/CustomContentCursor')) },
+  // Cursor & Hover Effects
+  { id: 'magnetic-cursor', name: 'Magnetic Cursor', source: 'custom', category: 'Cursor & Hover Effects', filename: 'MagneticCursor.tsx', component: lazy(() => import('../../../components/MagneticCursor')) },
+  { id: 'hover-image-reveal', name: 'Hover Image Follower', source: 'custom', category: 'Cursor & Hover Effects', filename: 'HoverImageReveal.tsx', component: lazy(() => import('../../../components/HoverImageReveal')) },
 
-  { id: 'morphing-modal', name: 'Morphing Modal', source: 'custom', category: 'Overlays & Modals', filename: 'MorphingModal.tsx', component: lazy(() => import('../../../components/MorphingModal')) },
-  { id: 'alert-dialog', name: 'Alert Dialog', source: 'custom', category: 'Overlays & Modals', filename: 'AlertDialog.tsx', component: lazy(() => import('../../../components/AlertDialog')) },
-  { id: 'toaster', name: 'Toaster', source: 'custom', category: 'Overlays & Modals', filename: 'Toaster.tsx', component: lazy(() => import('../../../components/Toaster')) },
+  // Overlays & Feedback
+  { id: 'alert-dialog', name: 'Kinetic Alert Dialog', source: 'custom', category: 'Overlays & Feedback', filename: 'AlertDialog.tsx', component: lazy(() => import('../../../components/AlertDialog')) },
+  { id: 'toaster', name: 'Stacked Toasts', source: 'custom', category: 'Overlays & Feedback', filename: 'Toaster.tsx', component: lazy(() => import('../../../components/Toaster')) },
 
-  { id: 'apple-watch-home', name: 'Apple Watch', source: 'custom', category: 'Interactive UI', filename: 'AppleWatchHome.tsx', component: lazy(() => import('../../../components/AppleWatchHome')) },
-  { id: 'ios-app-folder', name: 'App Folder', source: 'custom', category: 'Interactive UI', filename: 'IosAppFolder.tsx', component: lazy(() => import('../../../components/IosAppFolder')) },
-  { id: 'swipe-actions', name: 'Swipe Actions', source: 'custom', category: 'Interactive UI', filename: 'SwipeActions.tsx', component: lazy(() => import('../../../components/SwipeActions')) },
-  { id: 'ios-slider', name: 'iOS Slider', source: 'custom', category: 'Interactive UI', filename: 'IosSlider.tsx', component: lazy(() => import('../../../components/IosSlider')) },
-  { id: 'number-price-switcher', name: 'Price Switcher', source: 'custom', category: 'Interactive UI', filename: 'NumberPriceSwitcher.tsx', component: lazy(() => import('../../../components/NumberPriceSwitcher')) },
-  { id: 'chat-interface', name: 'Chat UI', source: 'custom', category: 'Interactive UI', filename: 'ChatInterface.tsx', component: lazy(() => import('../../../components/ChatInterface')) },
-  { id: 'calendar', name: 'Calendar', source: 'custom', category: 'Interactive UI', filename: 'Calendar.tsx', component: lazy(() => import('../../../components/Calendar')) },
-  { id: 'accordion', name: 'Accordion', source: 'custom', category: 'Interactive UI', filename: 'Accordion.tsx', component: lazy(() => import('../../../components/Accordion')) },
-  { id: 'copy-button', name: 'Copy Button', source: 'custom', category: 'Interactive UI', filename: 'CopyButton.tsx', component: lazy(() => import('../../../components/CopyButton')) },
-  { id: 'hover-image-reveal', name: 'Hover Image Reveal', source: 'custom', category: 'Interactive UI', filename: 'HoverImageReveal.tsx', component: lazy(() => import('../../../components/HoverImageReveal')) }
+  // Interactive Controls
+  { id: 'ios-slider', name: 'iOS Control Slider', source: 'custom', category: 'Interactive Controls', filename: 'IosSlider.tsx', component: lazy(() => import('../../../components/IosSlider')) },
+  { id: 'chat-interface', name: 'Interactive Chat Widget', source: 'custom', category: 'Interactive Controls', filename: 'ChatInterface.tsx', component: lazy(() => import('../../../components/ChatInterface')) },
+  { id: 'accordion', name: 'Fluid Accordion', source: 'custom', category: 'Interactive Controls', filename: 'Accordion.tsx', component: lazy(() => import('../../../components/Accordion')) },
+  { id: 'copy-button', name: 'Morphing Copy Button', source: 'custom', category: 'Interactive Controls', filename: 'CopyButton.tsx', component: lazy(() => import('../../../components/CopyButton')) }
 ];

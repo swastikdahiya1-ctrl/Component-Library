@@ -17,27 +17,34 @@ export default function PhysicsText2() {
   const paragraph = "The quick brown fox jumps over the lazy dog effortlessly. Physics based text interaction allows for truly dynamic typography. This is exactly what makes modern web design absolutely amazing. Elements floating around the screen bouncing off the edges.";
   const text = paragraph.split(" ");
   
+  const containerRef = useRef<HTMLDivElement>(null);
   const letterRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const bodiesRef = useRef<PhysicsBody[]>([]);
   const [isReady, setIsReady] = useState(false);
   const reqRef = useRef<number>();
 
   useEffect(() => {
-    // 1. Initial DOM Measurement
+    // 1. Initial DOM Measurement relative to container
     const init = () => {
+      const container = containerRef.current;
+      if (!container) return;
+      const cRect = container.getBoundingClientRect();
+
       const bodies: PhysicsBody[] = letterRefs.current.map((el) => {
         if (!el) return null;
         const rect = el.getBoundingClientRect();
+        const relX = rect.left - cRect.left;
+        const relY = rect.top - cRect.top;
         return {
           el,
-          x: rect.left,
-          y: rect.top,
+          x: relX,
+          y: relY,
           vx: 0,
           vy: 0,
           w: rect.width,
           h: rect.height,
-          origX: rect.left,
-          origY: rect.top,
+          origX: relX,
+          origY: relY,
           scale: 1,
         };
       }).filter(Boolean) as PhysicsBody[];
@@ -45,7 +52,7 @@ export default function PhysicsText2() {
       bodiesRef.current = bodies;
       setIsReady(true);
 
-      // Start physics loop next frame after React switches to position: fixed
+      // Start physics loop next frame after React switches to position: absolute
       requestAnimationFrame(() => {
         startPhysics();
       });
@@ -64,10 +71,24 @@ export default function PhysicsText2() {
     let lastMouseY = -1000;
 
     const handleMove = (e: PointerEvent) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
     };
-    window.addEventListener('pointermove', handleMove);
+
+    const handleLeave = () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
+      lastMouseX = -1000;
+      lastMouseY = -1000;
+    };
+
+    const containerEl = containerRef.current;
+    if (containerEl) {
+      containerEl.addEventListener('pointermove', handleMove);
+      containerEl.addEventListener('pointerleave', handleLeave);
+    }
 
     const startPhysics = () => {
       const FRICTION = 0.994; // Normal interaction friction
@@ -81,16 +102,22 @@ export default function PhysicsText2() {
         const now = performance.now();
 
         // Calculate mouse velocity (pixels per frame)
-        if (lastMouseX !== -1000) {
+        if (lastMouseX !== -1000 && mouse.x !== -1000) {
           mouse.vx = mouse.x - lastMouseX;
           mouse.vy = mouse.y - lastMouseY;
+        } else {
+          mouse.vx = 0;
+          mouse.vy = 0;
         }
         lastMouseX = mouse.x;
         lastMouseY = mouse.y;
 
         const bodies = bodiesRef.current;
-        const centerX = window.innerWidth / 2;
-        const centerY = window.innerHeight / 2;
+        const container = containerRef.current;
+        const boundsWidth = container ? container.clientWidth : 800;
+        const boundsHeight = container ? container.clientHeight : 600;
+        const centerX = boundsWidth / 2;
+        const centerY = boundsHeight / 2;
 
         if (state === 'COUNTDOWN') {
           if (now - countdownStartTime > 5000) {
@@ -135,8 +162,6 @@ export default function PhysicsText2() {
             body.vy = body.vy * currentFriction + pullY + spinY;
 
             // CRITICAL EVENT HORIZON FIX: Prevent slingshot overshooting!
-            // If they travel faster than their distance to the center, they shoot past it and orbit forever.
-            // We force them to slow down right as they hit the singularity (like time dilation).
             if (dist < 200) {
               const speed = Math.sqrt(body.vx * body.vx + body.vy * body.vy);
               const maxSpeed = Math.max(1, dist * 0.15); // Cannot travel more than 15% of the remaining distance per frame
@@ -221,16 +246,16 @@ export default function PhysicsText2() {
               body.x = 0; 
               body.vx *= -BOUNCE; 
             }
-            if (body.x + body.w > window.innerWidth) { 
-              body.x = window.innerWidth - body.w; 
+            if (body.x + body.w > boundsWidth) { 
+              body.x = boundsWidth - body.w; 
               body.vx *= -BOUNCE; 
             }
             if (body.y < 0) { 
               body.y = 0; 
               body.vy *= -BOUNCE; 
             }
-            if (body.y + body.h > window.innerHeight) { 
-              body.y = window.innerHeight - body.h; 
+            if (body.y + body.h > boundsHeight) { 
+              body.y = boundsHeight - body.h; 
               body.vy *= -BOUNCE; 
             }
 
@@ -245,7 +270,10 @@ export default function PhysicsText2() {
     };
 
     return () => {
-      window.removeEventListener('pointermove', handleMove);
+      if (containerEl) {
+        containerEl.removeEventListener('pointermove', handleMove);
+        containerEl.removeEventListener('pointerleave', handleLeave);
+      }
       if (reqRef.current) cancelAnimationFrame(reqRef.current);
     };
   }, []);
@@ -253,7 +281,10 @@ export default function PhysicsText2() {
   let globalCharIndex = 0;
 
   return (
-    <div className="w-full h-screen bg-black overflow-hidden flex items-center justify-center cursor-crosshair px-12 relative">
+    <div 
+      ref={containerRef} 
+      className="w-full h-full bg-black overflow-hidden flex items-center justify-center cursor-crosshair px-12 relative select-none"
+    >
       <div className="flex flex-wrap justify-center gap-x-3 gap-y-2 font-normal text-3xl text-white select-none max-w-3xl text-center leading-relaxed z-10">
         {text.map((word, wIdx) => (
           <span key={wIdx} className="inline-flex whitespace-nowrap">
@@ -264,7 +295,7 @@ export default function PhysicsText2() {
                   key={cIdx}
                   ref={(el) => (letterRefs.current[currentIdx] = el)}
                   style={{
-                    position: isReady ? 'fixed' : 'relative',
+                    position: isReady ? 'absolute' : 'relative',
                     left: 0,
                     top: 0,
                     transform: isReady ? `translate3d(${bodiesRef.current[currentIdx]?.origX || 0}px, ${bodiesRef.current[currentIdx]?.origY || 0}px, 0) scale(1)` : 'none',

@@ -81,7 +81,7 @@ export default function Accordion() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center w-full min-h-screen bg-black font-sans pb-32">
+    <div className="flex flex-col items-center justify-center w-full h-full bg-black font-sans p-6">
       <div className="w-full max-w-[440px] flex flex-col">
         {ACCORDION_DATA.map((item, index) => {
           const isActive = activeIndex === index;

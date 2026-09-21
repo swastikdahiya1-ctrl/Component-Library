@@ -133,7 +133,7 @@ export default function Calendar({ isMultiSelect = false }: CalendarProps) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen pb-48 bg-black font-sans relative" ref={containerRef}>
+    <div className="flex flex-col items-center justify-center w-full h-full bg-black font-sans relative" ref={containerRef}>
       
       {/* Trigger Button */}
       <button
