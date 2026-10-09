@@ -14,8 +14,11 @@ import {
   Check,
   Code2,
   Copy,
+  Download,
+  Link as LinkIcon,
   Monitor,
   Moon,
+  Pause,
   Play,
   RotateCcw,
   Search,
@@ -27,6 +30,7 @@ import { componentsRegistry, type ComponentEntry } from "./components/registry";
 import "./App.css";
 
 const CodeView = lazy(() => import("./components/CodeView"));
+const EmbeddedPreview = lazy(() => import("./components/EmbeddedPreview"));
 const rawCodes = import.meta.glob("../../components/*.tsx", {
   query: "?raw",
   import: "default",
@@ -97,10 +101,12 @@ function PreviewFrame({
   entry,
   thumbnail = false,
   replay = 0,
+  playing = true,
 }: {
   entry: ComponentEntry;
   thumbnail?: boolean;
   replay?: number;
+  playing?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const frame = useRef<HTMLIFrameElement>(null);
@@ -108,32 +114,56 @@ function PreviewFrame({
   useEffect(() => {
     const element = ref.current;
     if (!element || !thumbnail) return;
+    let intersects = false;
+    const updateVisibility = () => setVisible(intersects && !document.hidden);
     const observer = new IntersectionObserver(
-      ([item]) => setVisible(item.isIntersecting),
+      ([item]) => {
+        intersects = item.isIntersecting;
+        updateVisibility();
+      },
       { rootMargin: "100px" },
     );
     observer.observe(element);
+    document.addEventListener("visibilitychange", updateVisibility);
+    return () => {
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", updateVisibility);
+    };
+  }, [thumbnail]);
+  useEffect(() => {
+    const element = ref.current;
+    if (!element || !thumbnail) return;
     const resize = new ResizeObserver(([item]) => {
       if (frame.current)
         frame.current.style.transform = `scale(${item.contentRect.width / 900})`;
     });
     resize.observe(element);
     return () => {
-      observer.disconnect();
       resize.disconnect();
     };
-  }, [thumbnail, visible]);
+  }, [thumbnail, visible, playing]);
   return (
-    <div ref={ref} className={thumbnail ? "thumbnail-frame" : "full-frame"}>
-      {visible && (
+    <div
+      ref={ref}
+      className={thumbnail ? "thumbnail-frame" : "full-frame"}
+      aria-hidden={thumbnail || undefined}
+    >
+      {visible && playing && (
         <iframe
           ref={frame}
           key={`${entry.id}-${replay}`}
-          src={`?embed=${entry.id}`}
+          src={`?embed=${entry.id}${thumbnail ? "&autoplay=1" : ""}`}
           title={`${entry.name} ${thumbnail ? "thumbnail" : "interactive preview"}`}
           tabIndex={thumbnail ? -1 : 0}
           loading="lazy"
+          inert={thumbnail || undefined}
         />
+      )}
+      {thumbnail && !playing && (
+        <div className="paused-preview">
+          <Play size={24} />
+          <span>Preview paused</span>
+        </div>
       )}
     </div>
   );
@@ -150,6 +180,29 @@ function Gallery({
   category: string;
   setCategory: (v: string) => void;
 }) {
+  const [playing, setPlaying] = useState(
+    () => !matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+  useEffect(() => {
+    const media = matchMedia("(prefers-reduced-motion: reduce)");
+    const handleChange = () => setPlaying(!media.matches);
+    media.addEventListener("change", handleChange);
+    return () => media.removeEventListener("change", handleChange);
+  }, []);
+  const searchRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    const focusSearch = (event: KeyboardEvent) => {
+      if (event.key !== "/" || event.ctrlKey || event.metaKey || event.altKey)
+        return;
+      const target = event.target as HTMLElement;
+      if (target.closest("input, textarea, select, [contenteditable='true']"))
+        return;
+      event.preventDefault();
+      searchRef.current?.focus();
+    };
+    window.addEventListener("keydown", focusSearch);
+    return () => window.removeEventListener("keydown", focusSearch);
+  }, []);
   const filtered = componentsRegistry.filter(
     (c) =>
       (category === "All components" || c.category === category) &&
@@ -211,9 +264,19 @@ function Gallery({
               A little motion goes a long way<span>.</span>
             </h2>
           </div>
-          <span className="collection-count">
-            {componentsRegistry.length} components
-          </span>
+          <div className="collection-meta">
+            <span className="collection-count">
+              {componentsRegistry.length} components
+            </span>
+            <button
+              className="preview-playback"
+              onClick={() => setPlaying((value) => !value)}
+              aria-label={playing ? "Pause previews" : "Play previews"}
+            >
+              {playing ? <Pause size={13} /> : <Play size={13} />}
+              {playing ? "Pause previews" : "Play previews"}
+            </button>
+          </div>
         </div>
         <div className="collection-toolbar">
           <div className="category-tabs" aria-label="Filter by category">
@@ -231,10 +294,17 @@ function Gallery({
           <label className="search-field">
             <Search size={16} />
             <input
+              ref={searchRef}
               aria-label="Search components"
               placeholder="Find a component..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Escape") {
+                  setQuery("");
+                  event.currentTarget.blur();
+                }
+              }}
             />
             {query && (
               <button onClick={() => setQuery("")} aria-label="Clear search">
@@ -255,7 +325,7 @@ function Gallery({
               style={{ animationDelay: `${Math.min(index, 5) * 40}ms` }}
             >
               <div className="card-preview">
-                <PreviewFrame entry={entry} thumbnail />
+                <PreviewFrame entry={entry} thumbnail playing={playing} />
                 <span className="preview-affordance">
                   <Play size={13} fill="currentColor" /> Try it out
                 </span>
@@ -297,8 +367,10 @@ function Workshop({ entry }: { entry: ComponentEntry }) {
   const [replay, setReplay] = useState(0);
   const [code, setCode] = useState("");
   const [copyState, setCopyState] = useState("Copy code");
+  const [linkCopied, setLinkCopied] = useState(false);
   const filename = entry.filename;
   const copyTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const linkTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => {
     let cancelled = false;
     rawCodes[`../../components/${filename}`]?.()
@@ -311,6 +383,7 @@ function Workshop({ entry }: { entry: ComponentEntry }) {
     return () => {
       cancelled = true;
       if (copyTimer.current) clearTimeout(copyTimer.current);
+      if (linkTimer.current) clearTimeout(linkTimer.current);
     };
   }, [filename]);
   async function copy() {
@@ -324,6 +397,26 @@ function Workshop({ entry }: { entry: ComponentEntry }) {
     if (copyTimer.current) clearTimeout(copyTimer.current);
     copyTimer.current = setTimeout(() => setCopyState("Copy code"), 2000);
   }
+  async function copyLink() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setLinkCopied(true);
+      if (linkTimer.current) clearTimeout(linkTimer.current);
+      linkTimer.current = setTimeout(() => setLinkCopied(false), 2000);
+    } catch {
+      setCopyState("Copy the URL from your browser");
+    }
+  }
+  function downloadSource() {
+    const url = URL.createObjectURL(
+      new Blob([code], { type: "text/plain;charset=utf-8" }),
+    );
+    const anchor = document.createElement("a");
+    anchor.href = url;
+    anchor.download = filename;
+    anchor.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
   return (
     <section className="workshop">
       <a className="back-link" href="#collection">
@@ -335,10 +428,34 @@ function Workshop({ entry }: { entry: ComponentEntry }) {
           <h1>{entry.name}</h1>
           <p>{descriptions[entry.id]}</p>
         </div>
-        <button className="primary-button" onClick={copy} disabled={!code}>
-          {copyState === "Copied!" ? <Check size={16} /> : <Copy size={16} />}
-          {copyState}
-        </button>
+        <div className="workshop-actions">
+          <button
+            className="secondary-button icon-button"
+            onClick={copyLink}
+            aria-label={linkCopied ? "Link copied" : "Copy component link"}
+            title={linkCopied ? "Link copied" : "Copy component link"}
+          >
+            {linkCopied ? <Check size={16} /> : <LinkIcon size={16} />}
+          </button>
+          <button
+            className="secondary-button icon-button"
+            onClick={downloadSource}
+            disabled={!code}
+            aria-label="Download source file"
+            title="Download source file"
+          >
+            <Download size={16} />
+          </button>
+          <button
+            className="primary-button"
+            onClick={copy}
+            disabled={!code}
+            aria-live="polite"
+          >
+            {copyState === "Copied!" ? <Check size={16} /> : <Copy size={16} />}
+            {copyState}
+          </button>
+        </div>
       </div>
       <div className="workbench">
         <div className="workbench-toolbar">
@@ -445,7 +562,8 @@ export default function App() {
     return () => window.removeEventListener("hashchange", handler);
   }, []);
   useEffect(() => {
-    if (hash === "#collection") document.getElementById("collection")?.scrollIntoView();
+    if (hash === "#collection")
+      document.getElementById("collection")?.scrollIntoView();
   }, [hash]);
   const embedId = new URLSearchParams(window.location.search).get("embed");
   const entry = componentsRegistry.find(
@@ -454,22 +572,32 @@ export default function App() {
   if (embedId) {
     const embedded = componentsRegistry.find((c) => c.id === embedId);
     if (!embedded) return <p>Component not found.</p>;
-    const Demo = embedded.component;
     return (
-      <div className="embed-root">
-        <PreviewBoundary>
-          <Suspense
-            fallback={<div className="loading-state">Loading preview...</div>}
-          >
-            <Demo />
-          </Suspense>
-        </PreviewBoundary>
-      </div>
+      <PreviewBoundary>
+        <Suspense
+          fallback={<div className="loading-state">Loading preview...</div>}
+        >
+          <EmbeddedPreview
+            entry={embedded}
+            autoplay={
+              new URLSearchParams(window.location.search).get("autoplay") ===
+              "1"
+            }
+          />
+        </Suspense>
+      </PreviewBoundary>
     );
   }
   return (
     <div className="site" data-theme={theme}>
-      <a className="skip-link" href="#main" onClick={event => { event.preventDefault(); document.getElementById("main")?.focus(); }}>
+      <a
+        className="skip-link"
+        href="#main"
+        onClick={(event) => {
+          event.preventDefault();
+          document.getElementById("main")?.focus();
+        }}
+      >
         Skip to content
       </a>
       <header className="site-header">
