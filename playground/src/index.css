@@ -1,2 +1,19 @@
 @import "tailwindcss";
 @source "../../components";
+@font-face {
+  font-family: "Geist";
+  src: url("@fontsource-variable/geist/files/geist-latin-wght-normal.woff2")
+    format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+html {
+  margin: 0;
+}
+body {
+  margin: 0;
+}
+button,
+a {
+  touch-action: manipulation;
+}
