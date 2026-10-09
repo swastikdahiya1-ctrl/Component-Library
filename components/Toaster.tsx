@@ -7,7 +7,7 @@ import { X, Bell, Folder, Mail, MessageSquare, AlertTriangle } from 'lucide-reac
 // ============================================================================
 export const ANIMATION_CONFIG = {
   // Spring physics for toast entrance and re-positioning
-  spring: { type: "spring", bounce: 0.3, duration: 0.6 },
+  spring: { type: "spring" as const, bounce: 0.3, duration: 0.6 },
   
   // Stacking Math
   scaleOffset: 0.05, // Reduced from 0.15 so they don't get too tiny too fast, but we can dial this in

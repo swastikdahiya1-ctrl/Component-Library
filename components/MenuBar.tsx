@@ -19,7 +19,7 @@ interface MenuItemProps {
 // ============================================================================
 export const ANIMATION_CONFIG = {
   // Content Fade Animation
-  contentTransition: { duration: 0.25, ease: "easeOut" },
+  contentTransition: { duration: 0.25, ease: "easeOut" as const },
 
   // Stagger Text Items
   staggerDelay: 0.04,
@@ -28,21 +28,21 @@ export const ANIMATION_CONFIG = {
   // Individual Text Item Slide (Main Menu)
   itemXOffset: 0,
   itemYOffset: 10,
-  itemTransition: { type: "spring", bounce: 0.3, duration: 0.6 },
+  itemTransition: { type: "spring" as const, bounce: 0.3, duration: 0.6 },
 
   // Submenu Text Items
   submenuItemXOffset: -5,
   submenuItemYOffset: 0,
-  submenuItemTransition: { type: "spring", bounce: 0.3, duration: 0.6 },
+  submenuItemTransition: { type: "spring" as const, bounce: 0.3, duration: 0.6 },
   submenuStaggerDelay: 0.04,
   submenuInitialDelay: 0.03,
 
   // Background Box Glide (Main Menu)
-  backgroundTransition: { type: "spring", bounce: 0.05, duration: 0.4 },
+  backgroundTransition: { type: "spring" as const, bounce: 0.05, duration: 0.4 },
 
   // Submenu Pop-out Box
   submenuYOffset: 10,
-  submenuTransition: { type: "spring", bounce: 0, duration: 0.4 }
+  submenuTransition: { type: "spring" as const, bounce: 0, duration: 0.4 }
 };
 // ============================================================================
 

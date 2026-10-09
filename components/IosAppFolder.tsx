@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const springConfig = {
-  type: "spring",
+  type: "spring" as const,
   bounce: 0.25,
   duration: 0.5,
 };

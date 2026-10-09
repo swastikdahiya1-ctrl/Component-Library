@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RefreshCw, ArrowUp, MessageSquareDashed } from 'lucide-react';
 
@@ -24,7 +24,7 @@ const ADVENTURE_SCRIPT = [
 ];
 
 // Reusable spring configuration for that highly-polished bounce
-const springConfig = { type: "spring", bounce: 0.35, duration: 0.5 };
+const springConfig = { type: "spring" as const, bounce: 0.35, duration: 0.5 };
 
 export default function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const TEXT = "SCATTER";
@@ -31,7 +31,7 @@ export default function SplitTextScatter() {
                 scale: isHovered ? Math.random() * 0.5 + 0.5 : 1
               }}
               transition={{ 
-                type: "spring", 
+                type: "spring",
                 bounce: 0.6, 
                 damping: 10,
                 stiffness: 100,

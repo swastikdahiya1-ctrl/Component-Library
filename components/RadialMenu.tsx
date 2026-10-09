@@ -7,7 +7,7 @@ import { Plus, Home, Heart, Star, Share2, Settings, Search } from 'lucide-react'
 // ============================================================================
 export const ANIMATION_CONFIG = {
   radius: 110, // Pixels from center to orbital items
-  spring: { type: "spring", bounce: 0.4, duration: 0.6 },
+  spring: { type: "spring" as const, bounce: 0.4, duration: 0.6 },
   staggerDelay: 0.04, // Delay between each item popping out
 };
 
@@ -73,7 +73,7 @@ export default function RadialMenu() {
                   x: hoverX, 
                   y: hoverY, 
                   scale: 1.05, 
-                  transition: { type: "spring", bounce: 0.5, duration: 0.4 } 
+                  transition: { type: "spring", bounce: 0.5, duration: 0.4 }
                 }}
                 className={`absolute flex items-center justify-center w-14 h-14 rounded-full shadow-2xl ${item.color} z-10 outline-none`}
               >

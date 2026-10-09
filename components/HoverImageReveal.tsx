@@ -9,7 +9,7 @@ const LOCATIONS = [
 
 export default function HoverImageReveal() {
   const [activeLocation, setActiveLocation] = useState<string | null>(null);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Mouse tracking
   const mouseX = useMotionValue(0);
@@ -105,7 +105,7 @@ export default function HoverImageReveal() {
               className="absolute inset-0 w-full h-full object-cover grayscale"
               initial={{ scale: 1.6 }}
               animate={{ scale: 1 }}
-              transition={{ duration: 0.5, ease: "easeOut" }} 
+              transition={{ duration: 0.5, ease: "easeOut" }}
             />
           )}
         </AnimatePresence>

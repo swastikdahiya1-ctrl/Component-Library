@@ -12,12 +12,12 @@ export const ANIMATION_CONFIG = {
   
   // Items staggering downwards
   itemYOffset: -10,
-  itemTransition: { type: "spring", bounce: 0.4, duration: 0.5 },
+  itemTransition: { type: "spring" as const, bounce: 0.4, duration: 0.5 },
 
   // Container Dropdown
   containerScale: 0.9,
   containerYOffset: -10,
-  containerTransition: { type: "spring", bounce: 0.35, duration: 0.5 }
+  containerTransition: { type: "spring" as const, bounce: 0.35, duration: 0.5 }
 };
 // ============================================================================
 

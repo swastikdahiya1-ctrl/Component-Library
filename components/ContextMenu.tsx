@@ -14,14 +14,14 @@ export const ANIMATION_CONFIG = {
   // Individual Text Item Slide
   itemXOffset: -10,
   itemYOffset: 0,
-  itemTransition: { type: "spring", bounce: 0.3, duration: 0.5 },
+  itemTransition: { type: "spring" as const, bounce: 0.3, duration: 0.5 },
 
   // Context Menu Container
   containerStartScale: 0.0,
   containerStartX: 0,
   containerStartY: -10,
   containerTransformOrigin: "top left",
-  containerTransition: { type: "spring", bounce: 0.15, duration: 0.4 }
+  containerTransition: { type: "spring" as const, bounce: 0.15, duration: 0.4 }
 };
 // ============================================================================
 

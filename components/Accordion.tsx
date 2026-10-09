@@ -7,9 +7,9 @@ import { ChevronDown, MousePointer2, Sparkles, Sprout, Waves, LineChart } from '
 // ============================================================================
 export const ANIMATION_CONFIG = {
   // Bouncy physics for the boxes splitting and morphing
-  bouncy: { type: "spring", bounce: 0.35, duration: 0.6 },
+  bouncy: { type: "spring" as const, bounce: 0.35, duration: 0.6 },
   // Smooth physics for the content expanding so the text doesn't wobble
-  smooth: { type: "spring", bounce: 0, duration: 0.4 },
+  smooth: { type: "spring" as const, bounce: 0, duration: 0.4 },
 };
 // ============================================================================
 

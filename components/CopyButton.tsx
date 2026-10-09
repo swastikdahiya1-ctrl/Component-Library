@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clipboard } from 'lucide-react';
 
-const layoutTransition = { type: "spring", bounce: 0.4, duration: 0.5 };
-const contentTransition = { type: "spring", bounce: 0, duration: 0.4 };
+const layoutTransition = { type: "spring" as const, bounce: 0.4, duration: 0.5 };
+const contentTransition = { type: "spring" as const, bounce: 0, duration: 0.4 };
 
 export default function CopyButton() {
   const [copied, setCopied] = useState(false);

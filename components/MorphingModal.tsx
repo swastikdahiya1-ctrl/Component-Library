@@ -10,7 +10,7 @@ export default function MorphingModal() {
 
   // Handle loading and success states
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
     if (status === 'loading') {
       timeout = setTimeout(() => {
         setStatus('success');
