@@ -143,6 +143,82 @@ export function PreviewAutoplay({
     function cycle() {
       let duration = 8000;
       switch (id) {
+        case "perspective-deck":
+          [0, 2400, 4800].forEach((time) =>
+            later(time, () => click(target('[aria-label="Next card"]'))),
+          );
+          break;
+        case "shutter-switcher":
+          [0, 2400, 4800].forEach((time) =>
+            later(time, () => click(target('[aria-label="Next composition"]'))),
+          );
+          break;
+        case "focus-cards":
+          [1, 2, 0, 1].forEach((index, i) =>
+            later(i * 1800, () => {
+              hover(target("button", index));
+              click(target("button", index));
+            }),
+          );
+          later(6500, leave);
+          break;
+        case "expandable-dock":
+          [1, 2, 3, 4, 0, 2].forEach((index, i) =>
+            later(i * 1000, () => {
+              hover(target("button", index));
+              click(target("button", index));
+            }),
+          );
+          later(6500, leave);
+          break;
+        case "rolling-counter":
+          [0, 2300, 4600].forEach((time) =>
+            later(time, () => click(button("Try a bigger change"))),
+          );
+          break;
+        case "sliding-tabs":
+          [1, 2, 0].forEach((index, i) =>
+            later(i * 2300, () => click(target('[role="tab"]', index))),
+          );
+          break;
+        case "filterable-list":
+          ["Docs", "Images", "Video", "All"].forEach((name, i) =>
+            later(i * 1800, () => click(button(name))),
+          );
+          break;
+        case "process-stepper":
+          [0, 1900, 3800, 6200].forEach((time) =>
+            later(time, () => click(target("button"))),
+          );
+          break;
+        case "swipe-actions":
+          click(target('[aria-label="Show actions"]'));
+          later(2600, () => click(target('[aria-label="Archive message"]')));
+          later(5200, () => click(target('[aria-label="Restore message"]')));
+          break;
+        case "hold-to-confirm": {
+          const item = target('[aria-label="Hold to confirm"]');
+          if (item) {
+            const rect = item.getBoundingClientRect();
+            point(
+              item,
+              "pointerdown",
+              rect.left + rect.width / 2,
+              rect.top + rect.height / 2,
+              1,
+            );
+            later(1500, () =>
+              point(
+                item,
+                "pointerup",
+                rect.left + rect.width / 2,
+                rect.top + rect.height / 2,
+              ),
+            );
+          }
+          later(4600, () => click(button("Reset confirmation")));
+          break;
+        }
         case "studio-hover-anim":
           [0, 1, 2].forEach((row, i) =>
             later(i * 2000, () => hover(target(".cursor-pointer", row))),

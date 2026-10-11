@@ -37,6 +37,26 @@ const rawCodes = import.meta.glob("../../components/*.tsx", {
 }) as Record<string, () => Promise<string>>;
 const repo = "https://github.com/swastikdahiya1-ctrl/Component-Library";
 const descriptions: Record<string, string> = {
+  "perspective-deck":
+    "A stack of graphic cards that trades places in perspective, with one controlled overshoot and a clean settle.",
+  "shutter-switcher":
+    "Five staggered masks reveal the next composition. An editorial transition with a deliberate rhythm.",
+  "focus-cards":
+    "Perspective, elevation, and a quiet reveal guide attention between three visual studies. Hover, focus, or tap.",
+  "expandable-dock":
+    "A proximity-aware dock. The active icon rises, its neighbors respond, and everything settles without bounce.",
+  "rolling-counter":
+    "An odometer for your interface. Individual digit columns roll into place when the value changes.",
+  "sliding-tabs":
+    "A shared selection indicator and directional content transitions keep workspace changes connected.",
+  "filterable-list":
+    "Filter a collection and watch the remaining items take their new places, with coordinated exits and layout transitions.",
+  "process-stepper":
+    "A three-step sequence with drawing progress lines, resolved checkpoints, and clean content handoffs.",
+  "swipe-actions":
+    "Drag a conversation to expose its action. Edge resistance, velocity-aware settling, and a button alternative included.",
+  "hold-to-confirm":
+    "A deliberate hold fills the control before confirming. Release early to cancel, or hold Space or Enter.",
   "physics-text-2":
     "Typography with a gravitational pull. Move your cursor through the text and watch it find its way back.",
   typewriter:

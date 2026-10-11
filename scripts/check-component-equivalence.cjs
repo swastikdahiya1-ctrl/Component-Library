@@ -40,7 +40,16 @@ function runtime(source, name) {
 const files = fs
   .readdirSync(path.join(root, "components"))
   .filter((name) => name.endsWith(".tsx"));
-for (const name of files) {
+const baselineFiles = execFileSync(
+  "git",
+  ["ls-tree", "-r", "--name-only", baseline, "--", "components"],
+  { cwd: root, encoding: "utf8" },
+)
+  .trim()
+  .split("\n")
+  .filter((name) => name.endsWith(".tsx"))
+  .map((name) => path.basename(name));
+for (const name of baselineFiles) {
   const original = execFileSync(
     "git",
     ["show", `${baseline}:components/${name}`],
@@ -51,5 +60,5 @@ for (const name of files) {
     throw new Error(`Runtime code differs: ${name}`);
 }
 console.log(
-  `Verified ${files.length} components: identical runtime JavaScript, excluding unused React imports.`,
+  `Verified ${baselineFiles.length} original components: identical runtime JavaScript, excluding unused React imports. ${files.length - baselineFiles.length} new components excluded.`,
 );

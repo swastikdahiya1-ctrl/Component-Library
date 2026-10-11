@@ -16,6 +16,23 @@ In the gallery, `/` focuses search and Escape clears it. Pause previews stops al
 
 The component workspace provides responsive preview sizes, replay, source copying, source-file download, and a shareable component URL.
 
+## Original motion studies
+
+The collection now includes 26 registered components. Ten new standalone studies use the existing React, Tailwind, `framer-motion`, and `lucide-react` dependencies:
+
+- Perspective Card Deck: layered 3D transforms with a single controlled overshoot.
+- Editorial Shutter: five staggered clip masks across three compositions.
+- Perspective Focus Gallery: focus, elevation, and perspective across three studies.
+- Proximity Dock: neighboring icons respond to the hovered or focused target.
+- Rolling Number Counter: independently animated digit columns.
+- Sliding Workspace Tabs: a shared indicator, directional content, and arrow-key navigation.
+- Reflowing Filter List: coordinated removal, insertion, and layout changes.
+- Sequenced Progress: three checkpoints, progress lines, and content handoffs.
+- Swipe Action Reveal: edge resistance, velocity-aware gestures, and accessible action buttons.
+- Deliberate Confirmation: hold with pointer or keyboard; release early to cancel.
+
+Each new file is self-contained, includes reduced-motion support, and has a gallery playback sequence. The new pieces use restrained easing and springs with no bounce, except the card deck's small deliberate overshoot. No new dependencies or image requests are needed. Existing source components remain unchanged.
+
 ## Preserving component behavior
 
 The original components live in `../components`. `src/components/registry.ts` supplies their names, categories, source filenames, and lazy imports. `PreviewAutoplay.tsx` is a gallery-only input player: it sends clicks, hovers, and drag events to the original component without changing its animation settings. Full interactive previews do not use autoplay. Add a playback sequence there when registering a new interactive component; naturally looping components need no input sequence.
