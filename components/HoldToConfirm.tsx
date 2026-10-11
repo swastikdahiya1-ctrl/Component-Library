@@ -30,89 +30,100 @@ export default function HoldToConfirm() {
     [],
   );
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-100 flex flex-col items-center justify-center p-6 font-sans">
-      <div className="w-full max-w-[340px] text-center">
-        <p className="text-sm text-zinc-400 mb-8">
-          Some decisions deserve a moment.
-        </p>
-        <button
-          aria-label={done ? "Confirmed" : "Hold to confirm"}
-          aria-describedby={instructions}
-          disabled={done}
-          onPointerDown={(e) => {
-            if (e.button !== 0 || !e.isPrimary) return;
-            if (e.isTrusted) e.currentTarget.setPointerCapture(e.pointerId);
-            begin();
-          }}
-          onPointerUp={cancel}
-          onPointerCancel={cancel}
-          onLostPointerCapture={cancel}
-          onBlur={cancel}
-          onKeyDown={(e) => {
-            if ([" ", "Enter"].includes(e.key)) {
-              e.preventDefault();
-              if (!e.repeat) begin();
-            }
-          }}
-          onKeyUp={(e) => {
-            if ([" ", "Enter"].includes(e.key)) {
-              e.preventDefault();
-              cancel();
-            }
-          }}
-          className="relative w-full h-16 rounded-xl border border-zinc-700 bg-zinc-900 overflow-hidden select-none focus-visible:outline-2 focus-visible:outline-lime-300"
-          style={{ touchAction: "none" }}
-        >
-          <motion.span
-            aria-hidden="true"
-            className="absolute inset-0 bg-lime-300"
-            initial={false}
-            animate={{
-              clipPath:
-                done || holding ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)",
+    <div className="min-h-[100dvh] bg-[#080808] text-neutral-100 flex flex-col items-center justify-center p-6 font-['Geist']">
+      <div className="w-full max-w-[400px] text-center">
+        <h2 className="text-[28px] tracking-[-.04em] font-medium mb-3">
+          A deliberate action.
+        </h2>
+        <p className="text-sm text-neutral-400 mb-8">Press, hold, confirm.</p>
+        <div className="p-[5px] rounded-[23px] bg-white/[.025] ring-1 ring-white/10">
+          <button
+            aria-label={done ? "Confirmed" : "Hold to confirm"}
+            aria-describedby={instructions}
+            disabled={done}
+            onPointerDown={(e) => {
+              if (e.button !== 0 || !e.isPrimary) return;
+              if (e.isTrusted) e.currentTarget.setPointerCapture(e.pointerId);
+              begin();
             }}
-            transition={{
-              duration: holding ? 1.2 : 0.2,
-              ease: holding ? "linear" : [0.23, 1, 0.32, 1],
+            onPointerUp={cancel}
+            onPointerCancel={cancel}
+            onLostPointerCapture={cancel}
+            onBlur={cancel}
+            onKeyDown={(e) => {
+              if ([" ", "Enter"].includes(e.key)) {
+                e.preventDefault();
+                if (!e.repeat) begin();
+              }
             }}
-          />
-          <span
-            className={`relative flex items-center justify-center gap-3 font-medium ${done ? "text-zinc-950" : "text-white mix-blend-difference"}`}
+            onKeyUp={(e) => {
+              if ([" ", "Enter"].includes(e.key)) {
+                e.preventDefault();
+                cancel();
+              }
+            }}
+            className="relative w-full h-[70px] rounded-[18px] bg-[#202020] overflow-hidden select-none shadow-[inset_0_1px_0_0_rgba(255,255,255,.07)] focus-visible:outline-2 focus-visible:outline-white"
+            style={{ touchAction: "none" }}
           >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={done ? "check" : "print"}
-                initial={{
-                  opacity: 0,
-                  transform: reduce ? "none" : "translateY(6px)",
-                }}
-                animate={{ opacity: 1, transform: "translateY(0px)" }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.16 }}
-              >
-                {done ? <Check size={22} /> : <Fingerprint size={22} />}
-              </motion.span>
-            </AnimatePresence>
-            {done ? "Confirmed" : holding ? "Keep holding" : "Hold to confirm"}
-          </span>
-        </button>
+            <motion.span
+              aria-hidden="true"
+              className="absolute inset-0 bg-[#eee]"
+              initial={false}
+              animate={{
+                clipPath:
+                  done || holding ? "inset(0 0% 0 0)" : "inset(0 100% 0 0)",
+              }}
+              transition={{
+                duration: holding ? 1.2 : 0.2,
+                ease: holding ? "linear" : [0.23, 1, 0.32, 1],
+              }}
+            />
+            <span
+              className={`relative flex items-center justify-center gap-3 font-medium ${done ? "text-neutral-950" : "text-white mix-blend-difference"}`}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={done ? "check" : "print"}
+                  initial={{
+                    opacity: 0,
+                    transform: reduce ? "none" : "translateY(6px)",
+                  }}
+                  animate={{ opacity: 1, transform: "translateY(0px)" }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.16 }}
+                >
+                  {done ? (
+                    <Check size={22} strokeWidth={1.6} />
+                  ) : (
+                    <Fingerprint size={22} strokeWidth={1.4} />
+                  )}
+                </motion.span>
+              </AnimatePresence>
+              {done
+                ? "Confirmed"
+                : holding
+                  ? "Keep holding"
+                  : "Hold to confirm"}
+            </span>
+          </button>
+        </div>
         <p
           id={instructions}
           role="status"
-          className="mt-4 text-xs text-zinc-400 h-8"
+          className="mt-5 text-xs text-neutral-400 min-h-8 leading-relaxed"
         >
           {done
-            ? "All set. A deliberate action, clearly acknowledged."
-            : "Hold for 1.2 seconds. Release early to cancel.\nKeyboard: hold Space or Enter."}
+            ? "Confirmed successfully."
+            : "Hold for 1.2 seconds. Release to cancel. Keyboard: hold Space or Enter."}
         </p>
         <button
           onClick={() => {
             cancel();
             setDone(false);
           }}
-          className="inline-flex items-center gap-2 text-xs text-zinc-400 mt-5 p-3 rounded-lg focus-visible:outline-2 focus-visible:outline-lime-300"
+          className="inline-flex items-center gap-2 text-xs text-neutral-400 mt-5 p-3 rounded-lg focus-visible:outline-2 focus-visible:outline-white"
         >
-          <RotateCcw size={13} />
+          <RotateCcw size={13} strokeWidth={1.4} />
           Reset confirmation
         </button>
       </div>

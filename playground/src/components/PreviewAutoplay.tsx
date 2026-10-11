@@ -173,7 +173,9 @@ export function PreviewAutoplay({
           break;
         case "rolling-counter":
           [0, 2300, 4600].forEach((time) =>
-            later(time, () => click(button("Try a bigger change"))),
+            later(time, () =>
+              click(target('[aria-label="Cycle sample values"]')),
+            ),
           );
           break;
         case "sliding-tabs":

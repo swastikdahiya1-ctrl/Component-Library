@@ -31,7 +31,7 @@ The collection now includes 26 registered components. Ten new standalone studies
 - Swipe Action Reveal: edge resistance, velocity-aware gestures, and accessible action buttons.
 - Deliberate Confirmation: hold with pointer or keyboard; release early to cancel.
 
-Each new file is self-contained, includes reduced-motion support, and has a gallery playback sequence. The new pieces use restrained easing and springs with no bounce, except the card deck's small deliberate overshoot. No new dependencies or image requests are needed. Existing source components remain unchanged.
+Each new file is self-contained, includes reduced-motion support, and has a gallery playback sequence. The default visual language is black, white, and neutral gray, independent of the site's accent color. Typographic compositions, fine geometric studies, and subtle surface highlights carry the visual hierarchy. The new pieces use restrained easing and springs with no bounce, except the card deck's small deliberate overshoot. No new dependencies or image requests are needed. Existing source components remain unchanged.
 
 ## Preserving component behavior
 

@@ -5,7 +5,7 @@ import {
   motion,
   useReducedMotion,
 } from "framer-motion";
-import { ArrowUpRight, FileText, Image, Video } from "lucide-react";
+import { FileText, Image, Video } from "lucide-react";
 
 const files = [
   {
@@ -36,23 +36,24 @@ export default function FilterableList() {
   const id = useId();
   const visible = files.filter((f) => filter === "All" || f.type === filter);
   return (
-    <div className="min-h-screen bg-[#09090b] text-zinc-100 flex items-center justify-center p-6 font-sans">
-      <div className="w-full max-w-[420px]">
+    <div className="min-h-[100dvh] bg-[#080808] text-neutral-100 flex items-center justify-center p-6 font-['Geist']">
+      <div className="w-full max-w-[470px]">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-medium tracking-tight">
-            Your working files
-          </h2>
-          <span className="text-xs text-zinc-400" role="status">
+          <h2 className="text-2xl font-medium tracking-tight">Library</h2>
+          <span className="text-xs text-neutral-400" role="status">
             {visible.length} files
           </span>
         </div>
-        <div className="flex gap-2 mb-6" aria-label="File type">
+        <div
+          className="inline-flex gap-1 mb-6 p-1 rounded-full bg-white/[.04] ring-1 ring-white/10"
+          aria-label="File type"
+        >
           {["All", "Docs", "Images", "Video"].map((type) => (
             <button
               key={type}
               aria-pressed={filter === type}
               onClick={() => setFilter(type)}
-              className={`px-4 py-2 rounded-lg text-xs focus-visible:outline-2 focus-visible:outline-lime-300 ${filter === type ? "bg-lime-300 text-zinc-950" : "bg-zinc-900 text-zinc-400"}`}
+              className={`px-4 py-2.5 rounded-full text-xs focus-visible:outline-2 focus-visible:outline-white ${filter === type ? "bg-[#eee] text-neutral-950" : "text-neutral-400"}`}
             >
               {type}
             </button>
@@ -64,7 +65,7 @@ export default function FilterableList() {
               {visible.map(({ name, type, icon: Icon, detail }) => (
                 <motion.div
                   key={name}
-                  layout="position"
+                  layout={reduce ? false : "position"}
                   initial={{
                     opacity: 0,
                     transform: reduce ? "none" : "translateY(10px) scale(0.98)",
@@ -78,18 +79,22 @@ export default function FilterableList() {
                     transform: reduce ? "none" : "translateX(16px) scale(0.98)",
                   }}
                   transition={{ duration: reduce ? 0.1 : 0.25, ease }}
-                  className="flex items-center gap-4 p-4 mb-2 bg-zinc-900 rounded-xl border border-zinc-800"
+                  className="flex items-center gap-4 px-4 py-4 mb-2 bg-[#151515] rounded-[14px] ring-1 ring-inset ring-white/[.06]"
                 >
-                  <span
-                    className={`p-3 rounded-lg ${type === "Docs" ? "bg-lime-300/10 text-lime-300" : type === "Images" ? "bg-blue-300/10 text-blue-300" : "bg-orange-300/10 text-orange-300"}`}
-                  >
-                    <Icon size={18} />
+                  <span className="p-3 rounded-[10px] bg-[#242424] text-neutral-300 ring-1 ring-inset ring-white/[.06]">
+                    <Icon size={20} strokeWidth={1.4} />
                   </span>
                   <div className="flex-1">
                     <h3 className="text-sm">{name}</h3>
-                    <p className="mt-1 text-xs text-zinc-400">{detail}</p>
+                    <p className="mt-1 text-xs text-neutral-400">{detail}</p>
                   </div>
-                  <ArrowUpRight size={15} className="text-zinc-500" />
+                  <span className="text-[10px] text-neutral-400 font-mono">
+                    {type === "Docs"
+                      ? ".md"
+                      : type === "Images"
+                        ? ".png"
+                        : ".mov"}
+                  </span>
                 </motion.div>
               ))}
             </AnimatePresence>
